@@ -14,44 +14,34 @@ package br.com.dasa.bean;
  * @version 1.0
  */
 public class Sede extends Logradouro{
-    private int id_sede;
-    private String nome_unidade, num_tel;
+    private String nomeUnidade, numTel;
 
     public Sede(){
     }
 
-    public Sede(String rua, String cidade, String estado, String CEP, int id_sede, String num_tel, String nome_unidade){
+    public Sede(String rua, String cidade, String estado, String CEP, String numTel, String nomeUnidade){
         super.setRua(rua);
         super.setCidade(cidade);
         super.setEstado(estado);
         super.setCEP(CEP);
-        this.id_sede = id_sede;
-        this.num_tel = num_tel;
-        this.nome_unidade = nome_unidade;
+        this.numTel = numTel;
+        this.nomeUnidade = nomeUnidade;
     }
 
-    public int getId_sede() {
-        return id_sede;
+    public String getNumTel() {
+        return numTel;
     }
 
-    public void setId_sede(int id_sede) {
-        this.id_sede = id_sede;
+    public void setNumTel(String numTel) {
+        this.numTel = numTel;
     }
 
-    public String getNum_tel() {
-        return num_tel;
+    public String getNomeUnidade() {
+        return nomeUnidade;
     }
 
-    public void setNum_tel(String num_tel) {
-        this.num_tel = num_tel;
-    }
-
-    public String getNome_unidade() {
-        return nome_unidade;
-    }
-
-    public void setNome_unidade(String nome_unidade) {
-        this.nome_unidade = nome_unidade;
+    public void setNomeUnidade(String nomeUnidade) {
+        this.nomeUnidade = nomeUnidade;
     }
 }
 

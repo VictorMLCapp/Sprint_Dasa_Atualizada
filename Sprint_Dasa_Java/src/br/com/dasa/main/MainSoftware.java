@@ -10,7 +10,7 @@ public class MainSoftware {
     static int idCounter = 0; // Controle de ID automático
 
     public static void main(String[] args) {
-        String pergunta, cpf, cep, telefone, nome, dataNascimento, rua, numero, email, complemento, cidade, estado, escolha = "sim", exibicao, especialidade, descricao, dataEntrada, id;
+        String pergunta, cpf, cep, telefone, nome, dataNascimento, rua, numero, email, complemento, cidade, estado, escolha = "sim", exibicao, especialidade, descricao, dataEntrada, id, nomeUnidade, telUnidade, estadoUnidade, cidadeUnidade, ruaUnidade, cepUnidade;
         int idPac, idAmostra, crm, largura, altura, profundidade;
         LocalDate dataNasc;
 
@@ -21,12 +21,18 @@ public class MainSoftware {
                         Bem-Vindo ao Software Dasa!
                         O que gostaria de fazer?
                         1. Implementar Novo Paciente
-                        2. Analisar Amostra
+                        2. Implementar e Analisar Amostra
                         3. Verificar se Amostra é Recente""");
 
                 int opcao = Integer.parseInt(pergunta);
                 switch (opcao) {
                     case 1:
+                        pergunta = JOptionPane.showInputDialog("Seu paciente já possui Cadastro? Digite: 'Sim' ou 'Não' ");
+                        if (pergunta.equalsIgnoreCase("Sim")) {
+                            JOptionPane.showMessageDialog(null, "Vá para a Opção 3. 'Verifique se Amostra é Recente' ");
+                            break;
+                        }
+
                         if (pergunta.equalsIgnoreCase("Não")) {
                             idPac = idCounter++;
                             nome = JOptionPane.showInputDialog("Qual o Nome Completo do Paciente?").toUpperCase();
@@ -119,10 +125,30 @@ public class MainSoftware {
 
                     case 2:
                         idAmostra = idCounter++;
+                        JOptionPane.showMessageDialog(null, "Implementando Amostra");
+                        nomeUnidade = JOptionPane.showInputDialog("Digite o nome da Unidade: ");
+                        telUnidade = JOptionPane.showInputDialog("Digite o telofone da Unidade: ");
+                        if (telUnidade.length() != 11) throw new Exception("Telefone inválido. Deve conter 11 dígitos numéricos.");
+                        String telefoneFormatado = "(" + telUnidade.substring(0, 2) + ") " + telUnidade.substring(2, 7) + "-" + telUnidade.substring(7, 11);
+                        estadoUnidade = JOptionPane.showInputDialog("Digite o Estado que da Unidade: ");
+                        cidadeUnidade = JOptionPane.showInputDialog("Digite a  Cidade que da Unidade: ");
+                        ruaUnidade = JOptionPane.showInputDialog("Digite a Rua da Unidade ");
+                        cepUnidade = JOptionPane.showInputDialog("Digite o CEP da Unidade: ");
+                        if (cepUnidade.length() != 8) throw new Exception("CEP inválido. Deve conter exatamente 8 dígitos numéricos.");
+                        String cepFormatado = cepUnidade.substring(0, 5) + "-" + cepUnidade.substring(5, 8);
+
                         descricao = JOptionPane.showInputDialog("Digite a descrição da amostra: ");
                         largura = Integer.parseInt(JOptionPane.showInputDialog("Digite a largura da amostra (cm):"));
                         altura = Integer.parseInt(JOptionPane.showInputDialog("Digite a altura da amostra (cm):"));
                         profundidade = Integer.parseInt(JOptionPane.showInputDialog("Digite a profundidade da amostra (cm):"));
+
+                        Sede sede = new Sede();
+                        sede.setNomeUnidade(nomeUnidade);
+                        sede.setNumTel(telUnidade);
+                        sede.setEstado(estadoUnidade);
+                        sede.setCidade(cidadeUnidade);
+                        sede.setRua(ruaUnidade);
+                        sede.setCEP(cepUnidade);
 
                         Amostra amostra = new Amostra();
                         amostra.setIdAmostra(idCounter);
@@ -134,11 +160,19 @@ public class MainSoftware {
                         exibicao = String.format("""
                                    Exibindo informações sobre a Amostra:
                                    ID: %s
+                                   Localização da Amostra
+                                   Nome Unidade: %s
+                                   Telefone Unidade: %s
+                                   Estado : %s
+                                   Cidade: %s
+                                   Rua: %s
+                                   CEP: %s
+                                   Detalhes da Amostra
                                    Descrição: %s
                                    Largura: %s
                                    Altura: %s
                                    Profundidade: %s
-                                   Volume da Amostra: %s""", idAmostra, amostra.getDescricao(), amostra.getLarguraCm(), amostra.getAlturaCm(), amostra.getProfundidadeCm(), amostra.calcularVolume()
+                                   Volume da Amostra: %s""", idAmostra, sede.getNomeUnidade(), telefoneFormatado, sede.getEstado(), sede.getCidade(), sede.getRua(), cepFormatado, amostra.getDescricao(), amostra.getLarguraCm(), amostra.getAlturaCm(), amostra.getProfundidadeCm(), amostra.calcularVolume()
                         );
 
                         JOptionPane.showMessageDialog(null, exibicao);
