@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class MainSoftware {
-    static int idCounter = 0; // Controle de ID automático
+    static int idCounter = 1; // Controle de ID automático
 
     public static void main(String[] args) {
         String pergunta, cpf, cep, telefone, nome, dataNascimento, rua, numero, email, complemento, cidade, estado, escolha = "sim", exibicao, especialidade, descricao, dataEntrada, id, nomeUnidade, telUnidade, estadoUnidade, cidadeUnidade, ruaUnidade, cepUnidade;
@@ -59,7 +59,7 @@ public class MainSoftware {
                             String cepFormatado = cep.substring(0, 5) + "-" + cep.substring(5, 8);
 
                             email = JOptionPane.showInputDialog("Digite o E-mail do Paciente:");
-                            telefone = JOptionPane.showInputDialog("Digite o Telefone do Paciente com o DDD:");
+                            telefone = JOptionPane.showInputDialog("Digite o Telefone do Paciente com o DDD: '1199999999'");
                             if (telefone.length() != 11) throw new Exception("Telefone inválido. Deve conter 11 dígitos numéricos.");
                             String telefoneFormatado = "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 7) + "-" + telefone.substring(7, 11);
 
@@ -81,12 +81,12 @@ public class MainSoftware {
 
                             nome = JOptionPane.showInputDialog("Digite o nome do médico responsável: ");
                             email = JOptionPane.showInputDialog("Digite o email do médico: ");
-                            crm = Integer.parseInt(JOptionPane.showInputDialog("Digite o número do CRM: "));
+                            crm = Integer.parseInt(JOptionPane.showInputDialog("Digite o número do CRM \n 6 Digitos: "));
                             especialidade = JOptionPane.showInputDialog("Digite a especialidade do médico: ");
 
                             Medico medico = new Medico();
                             medico.setEspecialidade(especialidade);
-                            medico.setId_crm(crm);
+                            medico.setIdCrm(crm);
                             medico.setNomeComp(nome);
                             medico.setEmail(email);
 
@@ -125,22 +125,25 @@ public class MainSoftware {
 
                     case 2:
                         idAmostra = idCounter++;
-                        JOptionPane.showMessageDialog(null, "Implementando Amostra");
+                        JOptionPane.showMessageDialog(null, "Implementando informações da Sede que a Amostra será armazenada");
                         nomeUnidade = JOptionPane.showInputDialog("Digite o nome da Unidade: ");
-                        telUnidade = JOptionPane.showInputDialog("Digite o telofone da Unidade: ");
+                        telUnidade = JOptionPane.showInputDialog("Digite o telofone da Unidade: (11999999999)");
                         if (telUnidade.length() != 11) throw new Exception("Telefone inválido. Deve conter 11 dígitos numéricos.");
                         String telefoneFormatado = "(" + telUnidade.substring(0, 2) + ") " + telUnidade.substring(2, 7) + "-" + telUnidade.substring(7, 11);
-                        estadoUnidade = JOptionPane.showInputDialog("Digite o Estado que da Unidade: ");
-                        cidadeUnidade = JOptionPane.showInputDialog("Digite a  Cidade que da Unidade: ");
-                        ruaUnidade = JOptionPane.showInputDialog("Digite a Rua da Unidade ");
-                        cepUnidade = JOptionPane.showInputDialog("Digite o CEP da Unidade: ");
+
+                        estadoUnidade = JOptionPane.showInputDialog("Digite o Estado que a Unidade está localizada: ");
+                        cidadeUnidade = JOptionPane.showInputDialog("Digite a Cidade: ");
+                        ruaUnidade = JOptionPane.showInputDialog("Digite a Rua: ");
+                        cepUnidade = JOptionPane.showInputDialog("Digite o CEP: (06542111)");
                         if (cepUnidade.length() != 8) throw new Exception("CEP inválido. Deve conter exatamente 8 dígitos numéricos.");
                         String cepFormatado = cepUnidade.substring(0, 5) + "-" + cepUnidade.substring(5, 8);
 
-                        descricao = JOptionPane.showInputDialog("Digite a descrição da amostra: ");
-                        largura = Integer.parseInt(JOptionPane.showInputDialog("Digite a largura da amostra (cm):"));
-                        altura = Integer.parseInt(JOptionPane.showInputDialog("Digite a altura da amostra (cm):"));
-                        profundidade = Integer.parseInt(JOptionPane.showInputDialog("Digite a profundidade da amostra (cm):"));
+                        JOptionPane.showMessageDialog(null, "Implementando informações da Amostra");
+                        descricao = JOptionPane.showInputDialog("Digite a descrição da Amostra: ");
+                        largura = Integer.parseInt(JOptionPane.showInputDialog("Digite a largura da Amostra (cm):"));
+                        altura = Integer.parseInt(JOptionPane.showInputDialog("Digite a altura da Amostra (cm):"));
+                        profundidade = Integer.parseInt(JOptionPane.showInputDialog("Digite a profundidade da Amostra (cm):"));
+                        JOptionPane.showMessageDialog(null, "Exibindo todas as informações...");
 
                         Sede sede = new Sede();
                         sede.setNomeUnidade(nomeUnidade);
@@ -160,7 +163,7 @@ public class MainSoftware {
                         exibicao = String.format("""
                                    Exibindo informações sobre a Amostra:
                                    ID: %s
-                                   Localização da Amostra
+                                   Unidade da Amostra
                                    Nome Unidade: %s
                                    Telefone Unidade: %s
                                    Estado : %s
@@ -172,7 +175,8 @@ public class MainSoftware {
                                    Largura: %s
                                    Altura: %s
                                    Profundidade: %s
-                                   Volume da Amostra: %s""", idAmostra, sede.getNomeUnidade(), telefoneFormatado, sede.getEstado(), sede.getCidade(), sede.getRua(), cepFormatado, amostra.getDescricao(), amostra.getLarguraCm(), amostra.getAlturaCm(), amostra.getProfundidadeCm(), amostra.calcularVolume()
+                                   Volume da Amostra: %s
+                                   Volume transformado em Litros: %s""", idAmostra, sede.getNomeUnidade(), telefoneFormatado, sede.getEstado(), sede.getCidade(), sede.getRua(), cepFormatado, amostra.getDescricao(), amostra.getLarguraCm(), amostra.getAlturaCm(), amostra.getProfundidadeCm(), amostra.calcularVolume(), amostra.calcularVolume(0)
                         );
 
                         JOptionPane.showMessageDialog(null, exibicao);

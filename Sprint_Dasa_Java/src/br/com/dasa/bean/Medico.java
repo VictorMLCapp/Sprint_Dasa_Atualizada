@@ -32,7 +32,7 @@ public class Medico extends Pessoa{
         return idCrm;
     }
 
-    public void setId_crm(int idCrm) {
+    public void setIdCrm(int idCrm) {
         this.idCrm = idCrm;
     }
 

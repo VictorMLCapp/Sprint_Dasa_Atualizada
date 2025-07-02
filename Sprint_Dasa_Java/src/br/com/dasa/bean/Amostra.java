@@ -20,17 +20,19 @@ import java.time.temporal.ChronoUnit;
 public class Amostra implements AmostraVolume {
     private int idAmostra, larguraCm, alturaCm, profundidadeCm;
     private String descricao;
+    private int litros;
 
 
     public Amostra() {
     }
 
-    public Amostra(int idAmostra, int larguraCm, int alturaCm, String descricao, int profundidadeCm) {
+    public Amostra(int idAmostra, int larguraCm, int alturaCm, String descricao, int profundidadeCm, int litros) {
         this.idAmostra = idAmostra;
         this.larguraCm = larguraCm;
         this.alturaCm = alturaCm;
         this.descricao = descricao;
         this.profundidadeCm = profundidadeCm;
+        this.litros = litros;
     }
 
     public int getIdAmostra() {
@@ -73,9 +75,16 @@ public class Amostra implements AmostraVolume {
         this.descricao = descricao;
     }
 
+    public int getLitros() {
+        return litros;
+    }
+
+    public void setLitros(int litros) {
+        this.litros = litros;
+    }
+
     /**
      * Queremos calcular o volume da Amostra
-     *
      * @return - vai retornar o volume da amostra
      * @author Victor Capp
      */
@@ -85,14 +94,11 @@ public class Amostra implements AmostraVolume {
     }
 
     /**
-     * Verifica se a amostra ultrapassa um determinado volume limite em cm³.
-     *
-     * @param limite Volume limite em cm³
-     * @return true se o volume da amostra for maior que o limite, false caso contrário
+     * Calculando o volume em litros da amostra
+     * @return - retorna a medida em Litros
      * @author Victor Capp
      */
-    public boolean ultrapassaLimiteVolume(int limite) {
-        int volume = larguraCm * alturaCm * profundidadeCm;
-        return volume > limite;
+    public int calcularVolume(int litros){
+        return  calcularVolume() / 1000;
     }
 }

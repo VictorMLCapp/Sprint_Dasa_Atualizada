@@ -12,5 +12,4 @@ import java.time.LocalDate;
 
 public interface AmostraVolume {
     public int calcularVolume();
-    public boolean ultrapassaLimiteVolume(int limite);
 }

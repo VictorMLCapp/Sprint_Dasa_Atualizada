@@ -8,21 +8,26 @@ Matheus Guishi Morioka - RM 556935
 
 package br.com.dasa.bean;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 /**
  * Classe pessoa, classe Pai da classe Paciente e Medico, atributos: email e nome completo
  * @author Victor Capp
  * @version 1.0
  */
 
-public class Pessoa {
+public class Pessoa implements PacienteIdade{
     private String email, nomeComp;
+    private LocalDate dataNascimento;
 
     public Pessoa(){
     }
 
-    public Pessoa(String email, String nomeComp){
+    public Pessoa(String email, String nomeComp, LocalDate dataNascimento){
         this.email = email;
         this.nomeComp = nomeComp;
+        this.dataNascimento = dataNascimento;
     }
 
     public String getEmail() {
@@ -40,4 +45,19 @@ public class Pessoa {
     public void setNomeComp(String nomeComp) {
         this.nomeComp = nomeComp;
     }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public int calcularIdade() {
+        LocalDate dateAtual = LocalDate.now();
+        Period idade = Period.between(dataNascimento, dateAtual);
+        return idade.getYears();
+    }
 }
+
